@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Expense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ExpenseController extends Controller
 {
@@ -14,7 +16,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expense = Expense::all();
+        return response() -> json($expense);
     }
 
     /**
@@ -35,7 +38,15 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request -> validate([
+            'details' => 'required',
+            'amount' => 'required',
+        ]);
+        Expense::create([
+            'details'     => $request -> details,
+            'amount'     => $request -> amount,
+            'expense_date'     => date('d/m/y'),
+        ]);
     }
 
     /**
@@ -46,7 +57,8 @@ class ExpenseController extends Controller
      */
     public function show($id)
     {
-        //
+        $expense = DB::table('expenses') -> where('id',$id) -> first();
+        return response() -> json($expense);
     }
 
     /**
@@ -69,7 +81,15 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = $request -> validate([
+            'details' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $data = array();
+        $data['details'] = $request -> details;
+        $data['amount'] = $request -> amount;
+        DB::table('expenses') -> where('id',$id) -> update($data);
     }
 
     /**
@@ -80,6 +100,9 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $expense = Expense::find($id) -> delete();
+        // or
+        DB::table('expenses')-> where('id', $id) -> delete();
+
     }
 }

@@ -30,6 +30,17 @@ let storeexpense = require('./components/expense/create.vue').default;
 let expense = require('./components/expense/expense.vue').default;
 let editexpense = require('./components/expense/edit.vue').default;
 
+// Salary component
+let salary = require('./components/salary/all_employee.vue').default;
+let paySalary = require('./components/salary/create.vue').default;
+let allSalary = require('./components/salary/index.vue').default;
+let viewSalary = require('./components/salary/view.vue').default;
+let editSalary = require('./components/salary/edit.vue').default;
+
+//stock component
+let stock = require('./components/product/stock.vue').default;
+let editStock = require('./components/product/edit-stock.vue').default;
+
 export const routes = [
     { path: '/', component: login, name: '/' },
     { path: '/register', component: register, name:'register' },
@@ -56,4 +67,15 @@ export const routes = [
     { path: '/store-expense' , component: storeexpense, name: 'store-expense' },
     { path: '/expense' , component: expense, name: 'expense' },
     { path: '/expense-edit/:id' , component: editexpense, name: 'edit-expense' },
+      
+    // all salary route
+    { path: '/given-salary' , component: salary, name: 'given-salary' },
+    { path: '/pay-salary/:id' , component: paySalary, name: 'pay-salary' },
+    { path: '/salary' , component: allSalary, name: 'salary' },
+    { path: '/view-salary/:id' , component: viewSalary, name: 'view-salary' },
+    { path: '/edit-salary/:id' , component: editSalary, name: 'edit-salary' },
+    
+    // stock route
+    { path: '/stock' , component: stock, name: 'stock' },    
+    { path: '/edit-stock/:id' , component: editStock, name: 'edit-stock' },    
 ]

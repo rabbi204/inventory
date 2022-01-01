@@ -81,7 +81,7 @@ class CategoryController extends Controller
         $validateData = $request -> validate([
             'category_name' => 'required|unique:categories|max:255',
         ]);
-        Category::create([
+        Category::find($id) -> update([
             'category_name'     => $request -> category_name,
         ]);
     }

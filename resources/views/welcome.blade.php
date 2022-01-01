@@ -99,13 +99,28 @@
                             </div>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salary" aria-expanded="true" aria-controls="salary">
+                                <i class="far fa-fw fa-window-maximize"></i>
+                                <span>Salary</span>
+                            </a>
+                            <div id="salary" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+                                <div class="bg-white py-2 collapse-inner rounded">
+                                    <router-link class="collapse-item" to="/given-salary">Add Salary</router-link>
+                                    <router-link class="collapse-item" to="/salary">All Salary</router-link>
+                                </div>
+                            </div>
+                        </li>
+
 
                         <li class="nav-item">
-                            <a class="nav-link" href="forms.html">
+                            <router-link class="nav-link" to="/stock">
                                 <i class="fab fa-fw fa-wpforms"></i>
-                                <span>Forms</span>
-                            </a>
+                                <span>Stock</span>
+                            </router-link>
                         </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
                                 <i class="fas fa-fw fa-table"></i>

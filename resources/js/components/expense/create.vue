@@ -11,14 +11,19 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Add Expense</h1>
                                     </div>
-                                    <form class="user" @submit.prevent="categoryInsert">
+                                    <form class="user" @submit.prevent="expenseInsert">
 
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-12">
-                                                     <label for="expenseDetails">Expense Details</label>
+                                                     <label for="expenseDetails"><b>Expense Details</b></label>
                                                     <textarea class="form-control" v-model="form.details" id="expenseDetails" rows="3"></textarea>
                                                      <small class="text-danger" v-if="errors.details">{{ errors.details[0] }}</small>
+                                                </div>
+                                                 <div class="col-md-12"><br>
+                                                     <label for="amount"><b>Expense Amount</b></label>
+                                                     <input type="text" class="form-control" v-model="form.amount" id="amount" >
+                                                     <small class="text-danger" v-if="errors.amount">{{ errors.amount[0] }}</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,7 +66,8 @@ export default {
     data(){
         return {
             form: {
-                category_name: null,
+                details: null,
+                amount: null,
             },
             errors:{}
         }
@@ -80,10 +86,10 @@ export default {
         //         reader.readAsDataURL(file);
         //     }
         // },
-        categoryInsert(){
-            axios.post('/api/category/', this.form)
+        expenseInsert(){
+            axios.post('/api/expense/', this.form)
             .then(() => {
-                this.$router.push({name: 'category'});
+                this.$router.push({name: 'expense'});
                 Notification.success();
             })
             .catch(error => this.errors = error.response.data.errors)

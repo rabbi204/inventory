@@ -126,7 +126,7 @@ class ProductController extends Controller
         $data['root']  = $request -> root;
         $data['buying_price']  = $request -> buying_price;
         $data['selling_price']  = $request -> selling_price;
-        $data['product_quantity']  = $request -> selling_price;
+        $data['product_quantity']  = $request -> product_quantity;
 
         $image = $request -> newimage;
         if($image){
@@ -171,4 +171,15 @@ class ProductController extends Controller
             DB::table('products') -> where('id', $id) -> delete();
         }
     }
+
+    /**
+     *  stock update
+     */
+    public function stockUpdate(Request $request, $id)
+    {
+       $data = array();
+       $data['product_quantity'] = $request -> product_quantity;
+       DB::table('products') -> where('id', $id) -> update($data);
+    }
+
 }
