@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/store-employee" class="btn btn-primary btn-sm">Add Employee</router-link>
+        <router-link to="/store-customer" class="btn btn-primary btn-sm">Add Customer</router-link>
        <br/>
        <br/>
         <div class="row">
@@ -8,8 +8,8 @@
                 <!-- Simple Tables -->
                 <div class="card">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
-                        <input type="text" v-model="searchTerm" class="form-control col-md-4" placeholder="search by phone">
+                        <h6 class="m-0 font-weight-bold text-primary">Customer List</h6>
+                        <input type="text" v-model="searchTerm" class="form-control col-md-4" placeholder="search by name">
                     </div>
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
@@ -17,25 +17,23 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Photo</th>
+                                    <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Joining Date</th>
-                                    <th>Salary</th>
-                                    <th>NID</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <tr v-for="employee in filterSearch" :key="employee.id">
-                                    <td>{{ employee.name }}</td>
-                                    <td><img :src="employee.photo" alt="" id="em_photo"></td>
-                                    <td>{{ employee.phone }}</td>
-                                    <td>{{ employee.joining_date }}</td>
-                                    <td>{{ employee.salary }}</td>
-                                    <td>{{ employee.nid }}</td>
+                                <tr v-for="customer in filterSearch" :key="customer.id">
+                                    <td>{{ customer.name }}</td>
+                                    <td><img :src="customer.photo" alt="" id="em_photo"></td>
+                                    <td>{{ customer.email }}</td>
+                                    <td>{{ customer.phone }}</td>
+                                    <td>{{ customer.address }}</td>
                                     <td>
-                                        <router-link :to="{name: 'edit-employee', params:{id:employee.id}}" class="btn btn-primary btn-sm">Edit</router-link>
-                                        <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger">Delete</a>
+                                        <router-link :to="{name: 'edit-customer', params:{id:customer.id}}" class="btn btn-primary btn-sm">Edit</router-link>
+                                        <a @click="deleteCustomer(customer.id)" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                
@@ -59,26 +57,26 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            customers:[],
             searchTerm: '',
         }
     },
 
     computed:{
         filterSearch(){
-            return this.employees.filter(employee => {
-                return employee.phone.match(this.searchTerm);
+            return this.customers.filter(customer => {
+                return customer.name.match(this.searchTerm);
             });
         }
     },
     
     methods:{
-        allEmployee(){
-            axios.get('api/employee')
-            .then( ({data}) => (this.employees = data))
+        allCustomer(){
+            axios.get('/api/customer/')
+            .then( ({data}) => (this.customers = data))
             .catch()
         },
-        deleteEmployee(id){
+        deleteCustomer(id){
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -90,14 +88,14 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    axios.delete('api/employee/' + id)
+                    axios.delete('api/customer/' + id)
                     .then( () => {
-                        this.employees = this.employees.filter(employee => {
-                            return employee.id != id
+                        this.customers = this.customers.filter(customer => {
+                            return customer.id != id
                         })
                     } )
                     .catch( () => {
-                        this.$router.push({name: 'employee'})
+                        this.$router.push({name: 'customer'})
                     } )
 
                     Swal.fire(
@@ -110,7 +108,7 @@ export default {
         }
     },
     created(){
-        this.allEmployee();
+        this.allCustomer();
     }
     
 }

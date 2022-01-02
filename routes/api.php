@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\ProductController;
@@ -35,6 +36,7 @@ Route::post('/salary/update/{id}', [SalaryController::class, 'updateSalary']);
 // stock route
 Route::post('/stock/update/{id}', [ProductController::class, 'stockUpdate']);
 
-
+// customer api route
+Route::apiResource('/customer',CustomerController::class);
 
 
